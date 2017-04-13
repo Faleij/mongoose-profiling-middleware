@@ -1,0 +1,23 @@
+{
+  "name": "mongoose-profiling-middleware",
+  "version": "1.0.0",
+  "description": "Middleware to mark code position on every mongoose call",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "asdf"
+  },
+  "keywords": [
+    "mongoose",
+    "middleware",
+    "profiler"
+  ],
+  "author": "Oded Noam oded@odednoam.com",
+  "license": "ISC",
+  "dependencies": {
+    "stack-trace": "0.0.9"
+  }
+}
