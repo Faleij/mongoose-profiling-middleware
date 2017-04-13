@@ -17,5 +17,5 @@ When profiling, this allows seeing which calls took the most time to complete.
 1. Run your application for some time. Make sure the usage pattern when profiling resembles real-life scenarios. (You can profile on your production system, but note that it may marginally slow it down).
 1. A collection named `System/system.profile` is created. Example query to list the most time-hogging calls:
 ~~~~
-db.getCollection('system.profile').aggregate([{$group: {_id: "$comment", calls: {$sum: 1}, millis: {$sum: "$millis"}}},{$sort: {millis: -1}}])
+db.getCollection('system.profile').aggregate([{$group: {_id: "$query.comment", calls: {$sum: 1}, millis: {$sum: "$millis"}}},{$sort: {millis: -1, calls: -1}}])
 ~~~~
