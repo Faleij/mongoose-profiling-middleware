@@ -1,6 +1,6 @@
 {
   "name": "mongoose-profiling-middleware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Middleware to mark code position on every mongoose call",
   "main": "index.js",
   "scripts": {

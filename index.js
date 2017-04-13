@@ -1,4 +1,5 @@
 var stackTrace = require('stack-trace');
+var mongoose = require('mongoose');
 
 module.exports = function(schema) {
     ["count", "find", "findOne", "findOneAndRemove", "findOneAndUpdate", "insertMany", "update"].forEach(function(m) {
@@ -19,4 +20,8 @@ module.exports = function(schema) {
             next();
         });
     })
-}
+};
+
+mongoose.plugin(module.exports);
+
+
