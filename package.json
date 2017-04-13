@@ -15,7 +15,7 @@
     "middleware",
     "profiler"
   ],
-  "author": "Oded Noam oded@odednoam.com",
+  "author": "Oded Noam <oded@odednoam.com>",
   "license": "ISC",
   "dependencies": {
     "stack-trace": "0.0.9"
