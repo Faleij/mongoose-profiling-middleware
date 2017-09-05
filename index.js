@@ -1,27 +1,34 @@
 var stackTrace = require('stack-trace');
-var mongoose = require('mongoose');
+
+function profilingPreHandler(next) {
+    var st = stackTrace.get();
+    var firstSte = st.find(function(ste) {
+        if (!ste) return false;
+        var filename = ste.getFileName();
+        if (/\/node_modules\//.test(filename)) return false;
+        if (/^internal\//.test(filename)) return false;
+        return true;
+    });
+    if (firstSte) {
+        this.options.comment = firstSte.getFileName() + ":" + firstSte.getLineNumber();
+    }
+    next();
+}
+
+// $comment can not be used with findOneAndRemove
+var operations = [
+    "count",
+    "find",
+    "findOne",
+    "findOneAndUpdate",
+    "insertMany",
+    "update"
+];
 
 module.exports = function(schema) {
-    ["count", "find", "findOne", "findOneAndRemove", "findOneAndUpdate", "insertMany", "update"].forEach(function(m) {
-        schema.pre(m, function(next) {
-            var st = stackTrace.get();
-            var firstSte = null;
-            st.forEach(function(ste) {
-                if (firstSte) return;
-                if (!ste) return;
-                var filename = ste.getFileName();
-                if (/\/node_modules\//.test(filename)) return;
-                if (/^internal\//.test(filename)) return;
-                firstSte = ste;
-            });
-            if (firstSte) {
-                this.options.comment = firstSte.getFileName() + ":" + firstSte.getLineNumber();
-            }
-            next();
-        });
+    operations.forEach(function(m) {
+        schema.pre(m, profilingPreHandler);
     })
 };
 
-mongoose.plugin(module.exports);
-
-
+module.exports.profilingPreHandler = profilingPreHandler;
