@@ -1,4 +1,5 @@
 var stackTrace = require('stack-trace');
+var operations = require('./operations');
 
 function profilingPreHandler(next) {
     var st = stackTrace.get();
@@ -10,25 +11,15 @@ function profilingPreHandler(next) {
         return true;
     });
     if (firstSte) {
-        this.options.comment = firstSte.getFileName() + ":" + firstSte.getLineNumber();
+        this.comment(firstSte.getFileName() + ":" + firstSte.getLineNumber());
     }
     next();
 }
 
-// $comment can not be used with findOneAndRemove
-var operations = [
-    "count",
-    "find",
-    "findOne",
-    "findOneAndUpdate",
-    "insertMany",
-    "update"
-];
-
 module.exports = function(schema) {
     operations.forEach(function(m) {
         schema.pre(m, profilingPreHandler);
-    })
+    });
 };
 
 module.exports.profilingPreHandler = profilingPreHandler;

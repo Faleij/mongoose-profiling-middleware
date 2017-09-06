@@ -16,12 +16,15 @@
     "profiler"
   ],
   "author": "Oded Noam <oded@odednoam.com>",
-  "contributors": "Faleij <faleij@gmail.com>",
+  "contributors": [
+      "Faleij <faleij@gmail.com>"
+  ],
   "license": "ISC",
   "dependencies": {
     "stack-trace": "0.0.10"
   },
   "devDependencies": {
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "mongoose": "^4.11.9"
   }
 }

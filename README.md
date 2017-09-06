@@ -1,5 +1,5 @@
 # mongoose-profiling-middleware
-Middleware to mark code position on every mongoose call.
+Middleware to mark code position on every find, findOne and update call.
 
 ## Global Usage
 To use source profiling on all schemas simply put the following line in your code.
@@ -21,6 +21,8 @@ mySchema.plugin(profiling);
 ## What it does
 The middleware will register a "pre" hook on every mongoose call, which sets the call's `$comment` to the current source file and line.
 When profiling, this allows seeing which calls took the most time to complete.
+
+Unsupported queries; count, findOneAndUpdate and findOneAndRemove (These are Unsupported due to $comment operator restrictions by mongodb).
 
 ## How to profile
 1. Require *mongoose-profiling-middleware* in your code, see [Global Usage](#global-usage) or [Schema Usage](#schema-usage).
